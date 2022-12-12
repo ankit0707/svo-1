@@ -1,0 +1,19 @@
+{% extends "global/SimplePage.html" %}
+{% load otree %}
+
+{% block title %} Covid-19 Pandemic News {% endblock %}
+
+{%  block content %}
+
+     <div class="row justify-content-center p-3">
+        <div class="col text-center">
+                <img src= "{% static 'news/False_2.png' %}" class="ml-3" alt="Fnews" width="670" length=" 390"/>
+        </div>
+    </div>
+
+     {% formfield player.Plausibility %}
+    {% formfield player.Familiarity %}
+    {% formfield player.Importance %}
+    {% formfield player.Worryingness %}
+    {% include "global/ButtonNext.html" with button_text="Next" %}
+{% endblock %}

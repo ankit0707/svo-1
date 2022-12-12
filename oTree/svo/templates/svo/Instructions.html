@@ -1,0 +1,25 @@
+{% extends "global/SimplePage.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+Instructions
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body" align="justify">
+        <p>
+            Suppose that Individual A is randomly paired with another person, Individual B in an experiment. The pairing
+            is anonymous, meaning that neither individual will ever know the identity of the other individual with whom
+            he or she is paired.
+        </p>
+
+
+        <p><b>Click the ‘Next’ button to proceed.</b></p>
+    </div>
+</div>
+<br>
+    {% include "global/ButtonNext.html" with button_text="Next" %}
+
+{% endblock %}

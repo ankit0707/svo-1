@@ -12,39 +12,70 @@ SESSION_CONFIG_DEFAULTS = {
     'doc': "",
 }
 
-
 SESSION_CONFIGS = [
-{
-    'name': 'svo',
-    'display_name': "Social Value Orientation",
-    'num_demo_participants': 4,
-    'app_sequence': ['svo'],
-		'matching': 'RING',
-		'select_items': 'FULL',
-		'items_in_random_order': False,
-		'scale': 0.1 ,
-		'slider_init': 'LEFT',
-		'random_payoff': 'RAND',
-		'precision': 'INTEGERS',
-		'language': 'de',
-		'doc': """
-    	Edit the 'matching' parameter to select RING matching or 
-    	RANDOM_DICTATOR matching.</br>
-    	Edit the 'select_items' parameter to whether we use the first six items 
-    	to calculate the payoff (PRIMARY) or the 15 items (FULL).</br>
-    	Edit the 'scale' parameter to scale the slider values.</br>
-    	Edit the 'slider_init' parameter with LEFT, RIGHT, RAND or AVG to initialize the slider.</br>
-    	Edit the 'random_payoff' parameter with RAND or SUM to determine the way to calculate the payoff.</br>
-    	Edit the 'precision' parameter with TWO_DIGITS_AFTER_POINT or INTEGERS.
-    """
-  }
-]
 
+    dict(
+        name='Social_Norms_Misinformation',
+        display_name="Social Norms & Misinformation",
+        num_demo_participants=2,
+        matching='RING',
+        select_items='FULL',
+        items_in_random_order=True,
+        scale=10,
+        slider_init='LEFT',
+        random_payoff='RAND',
+        precision='INTEGERS',
+        language='en',
+        app_sequence=['Welcome',
+                      'Misinfo',
+                      'NormElicitation',
+                      'svo'],
+        use_browser_bots=False
+    ),
+
+    # dict(
+    #     name='svo',
+    #     display_name="Social Value Orientation",
+    #     num_demo_participants=2,
+    #     app_sequence=['svo'],
+    #     matching='RING',
+    #     select_items='FULL',
+    #     items_in_random_order=True,
+    #     scale=10,
+    #     slider_init='LEFT',
+    #     random_payoff='RAND',
+    #     precision='INTEGERS',
+    #     language='en',
+    #     use_browser_bots=False,
+    #     doc="""
+    # 	Edit the 'matching' parameter to select RING matching or
+    # 	RANDOM_DICTATOR matching.</br>
+    # 	Edit the 'select_items' parameter to whether we use the first six items
+    # 	to calculate the payoff (PRIMARY) or the 15 items (FULL).</br>
+    # 	Edit the 'scale' parameter to scale the slider values.</br>
+    # 	Edit the 'slider_init' parameter with LEFT, RIGHT, RAND or AVG to initialize the slider.</br>
+    # 	Edit the 'random_payoff' parameter with RAND or SUM to determine the way to calculate the payoff.</br>
+    # 	Edit the 'precision' parameter with TWO_DIGITS_AFTER_POINT or INTEGERS.
+    # 	"""
+    # ),
+    # dict(
+    #     name='NormElicitation',
+    #
+    #     display_name="Norm Elicitation (Standard Inspection game)",
+    #     num_demo_participants=2,
+    #     app_sequence=['NormElicitation'],
+    #     use_browser_bots=False),
+    #
+    # dict(
+    #     name='Welcome',
+    #     num_demo_participants=2,
+    #     app_sequence=['Welcome'],
+    #     use_browser_bots=False)
+]
 
 # ISO-639 code
 # for example: de, fr, it, en
 LANGUAGE_CODE = 'en'
-
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'EUR'
@@ -52,7 +83,6 @@ USE_POINTS = False
 # POINTS_DECIMAL_PLACES = 2
 
 ROOMS = []
-
 
 # AUTH_LEVEL:
 # this setting controls which parts of your site are freely accessible,
@@ -70,7 +100,6 @@ AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
-
 
 # Consider '', None, and '0' to be empty/false
 DEBUG = (environ.get('OTREE_PRODUCTION') in {None, '', '0'})

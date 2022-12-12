@@ -1,0 +1,106 @@
+{% extends "global/SimplePage.html" %}
+{% load staticfiles otree_tags %}
+{% load static %}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'slider.css' %}">
+
+    <style>
+      /* Set the width of each tickmark */
+      input[type=range]::-webkit-slider-tick {
+       width: 20px;
+      }
+
+        /* Position the labels below the tickmarks */
+      input[type=range] + label {
+       position: absolute;
+       bottom: -1.5em;
+      margin-left: -1.5px;
+      }
+   </style>
+</head>
+{% block title %}
+Situation A
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body" align="justify">
+
+                    <p>
+    The table below presents a hypothetical Situation and choices of the possible actions that you might take to protect yourself and others from infection.
+    For each of the action, please indicate whether you believe choosing that option is very socially inappropriate, socially
+    inappropriate, somewhat socially inappropriate, somewhat socially appropriate, socially appropriate, or
+    very socially appropriate. To maximise your earning in this task try to match your responses to the response of
+    majority of people present here today. <i><b> Your reward depends on how closely your response match the response of majority of people here today.</b></i>
+
+</p>
+
+<table class="table table-bordered text-center" style="width: auto; margin: auto">
+
+    <tr>
+    <th colspan = "6"> Situation : There has been reported cases of novel virus in country X. Public health experts predict
+that the threat might soon become global, and the infection will be widespread. Please indicate below how would
+you rate the appropriateness of below mentioned actions in response to the infection.</th>
+</tr>
+<tr>
+    <th rowspan="1"> Choices of actions</th>
+</tr>
+ <tr>
+    <th>Wear masks</th>
+    <th colspan = "5">
+         <input type="range" min="1" max="5" step="1" value="3" list="tickmarks" class="form-control" id="Act1" name="Act1">
+             <label for="Act1">1</label>
+             <label for="Act1">2</label>
+             <label for="Act1">3</label>
+              <label for="Act1">4</label>
+               <label for="Act1">5</label>
+              <datalist id="tickmarks">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+               <option value="4">
+                <option value="5">
+            </datalist>
+    </th>
+</tr>
+<tr>
+    <th>Self isolate if you experience symptoms</th>
+    <th colspan = "5">
+        <input type="range" min="1" max="5" step="1" value="3" list="tickmarks" class="form-control" id="Act2" name="Act2">
+        <datalist id="tickmarks">
+          <option value="1">
+          <option value="2">
+          <option value="3">
+          <option value="4">
+          <option value="5">
+        </datalist>
+
+    </th>
+</tr>
+
+ <tr>
+    <th>Maintain a 2m distance in Public places</th>
+    <th colspan = "5">
+       <input type="range" min="1" max="5" step="1" value="3" list="tickmarks" class="form-control" id="Act3" name="Act3">
+        <datalist id="tickmarks">
+          <option value="1">
+          <option value="2">
+          <option value="3">
+          <option value="4">
+          <option value="5">
+        </datalist>
+
+    </th>
+ </tr>
+
+
+    </table>
+
+     <p><b>Click the ‘Next’ button to proceed.</b></p>
+    </div>
+
+</div>
+{% endblock %}

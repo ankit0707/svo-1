@@ -1,0 +1,31 @@
+
+{% extends "global/SimplePage.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+    Introduction
+{% endblock %}
+
+{% block content %}
+    <p>
+        Today's experiment consists of a total of three (3) stages.
+    </p>
+
+    <p>
+        The three stages are independent of each other.
+        We will give you instructions for each stage at the start of that stage.
+    </p>
+
+    <p>
+        A dice will choose one stage at random to
+        determine your earnings for the experiment.
+    </p>
+
+    <p>
+        Click on (next) to proceed to Stage 1 Instructions.
+    </p>
+    {% include "global/ButtonNext.html" with button_text="Next" %}
+
+
+{% endblock %}

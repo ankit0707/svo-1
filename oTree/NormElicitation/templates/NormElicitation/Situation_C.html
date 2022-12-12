@@ -1,0 +1,157 @@
+{% extends "global/SimplePage.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+Situation C
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body" align="justify">
+        <p>
+            Reminder of the Instructions
+        </p>
+        <p>
+            At the beginning of each round, Worker and Employer are paired randomly. Worker must choose an action.
+            Employer will also be choosing an action at the same time. The action Worker and Employer choose will
+            determine their earnings. Worker must choose either HIGH or LOW effort, while Employer chooses either
+            INSPECT and NOT INSPECT at the same time. Token earnings depend on choices as described in the table below:
+        </p>
+        <table class="table table-bordered text-center" style="width: auto; margin: auto">
+            <tr>
+                <th colspan="2" rowspan="2"></th>
+                <th colspan="2">Employer</th>
+            </tr>
+            <tr>
+                <th>INSPECT</th>
+                <th>NOT INSPECT</th>
+            </tr>
+            <tr>
+                <th rowspan="2"><span>Worker</span></th>
+                <th>HIGH</th>
+                <td>{{ Constants.HIGH_INSPECT_payoff }}, {{ Constants.INSPECT_HIGH_payoff }}</td>
+                <td>{{ Constants.HIGH_NOT_INSPECT_payoff }}, {{ Constants.NOT_INSPECT_HIGH_payoff }}</td>
+            </tr>
+            <tr>
+                <th>LOW</th>
+                <td>{{ Constants.LOW_INSPECT_payoff }}, {{ Constants.INSPECT_LOW_payoff }}</td>
+                <td>{{ Constants.LOW_NOT_INSPECT_payoff }}, {{ Constants.NOT_INSPECT_LOW_payoff }}</td>
+            </tr>
+        </table>
+        <br>
+        <p>
+            For example, if Worker chooses LOW and Employer chooses NOT INSPECT, Worker earns
+            {{ Constants.LOW_NOT_INSPECT_payoff }} tokens and Employer earns {{ Constants.NOT_INSPECT_LOW_payoff }}
+            tokens. As another example, if Worker chooses HIGH and Employer chooses INSPECT, Worker earns
+            {{ Constants.HIGH_INSPECT_payoff }} tokens and Employer earns {{ Constants.INSPECT_HIGH_payoff }} tokens.
+        </p>
+        <p>
+            The table below presents a list of the possible choices available to Worker. For each of the choices,
+            please indicate whether you believe choosing that option is very socially inappropriate, socially
+            inappropriate, somewhat socially inappropriate, somewhat socially appropriate, socially appropriate, or
+            very socially appropriate. To indicate your response, please click on one radial for each action.
+        </p>
+        <table class="table table-bordered text-center" style="width: auto; margin: auto">
+            <tr>
+                <th rowspan="2"></th>
+                <th colspan="4">Worker chooses action</th>
+            </tr>
+            <tr>
+                <th>LOW when Employer chooses INSPECT</th>
+                <th>HIGH when Employer chooses INSPECT</th>
+                <th>LOW when Employer chooses NOT INSPECT</th>
+                <th>HIGH when Employer chooses NOT INSPECT</th>
+            </tr>
+            <tr>
+                <th>Very socially inappropriate</th>
+                <td><input type="radio" id="LowInspect1" name="NormRateLI" value="1"></td>
+                <td><input type="radio" id="HighInspect1" name="NormRateHI" value="1"></td>
+                <td><input type="radio" id="LowNotInspect1" name="NormRateLN" value="1"></td>
+                <td><input type="radio" id="HighNotInspect1" name="NormRateHN" value="1"></td>
+            </tr>
+            <tr>
+                <th>Socially inappropriate</th>
+                <td><input type="radio" id="LowInspect2" name="NormRateLI" value="2"></td>
+                <td><input type="radio" id="HighInspect2" name="NormRateHI" value="2"></td>
+                <td><input type="radio" id="LowNotInspect2" name="NormRateLN" value="2"></td>
+                <td><input type="radio" id="HighNotInspect2" name="NormRateHN" value="2"></td>
+            </tr>
+            <tr>
+                <th>Somewhat Socially inappropriate</th>
+                <td><input type="radio" id="LowInspect3" name="NormRateLI" value="3"></td>
+                <td><input type="radio" id="HighInspect3" name="NormRateHI" value="3"></td>
+                <td><input type="radio" id="LowNotInspect3" name="NormRateLN" value="3"></td>
+                <td><input type="radio" id="HighNotInspect3" name="NormRateHN" value="3"></td>
+            </tr>
+            <tr>
+                <th>Somewhat Socially appropriate</th>
+                <td><input type="radio" id="LowInspect4" name="NormRateLI" value="4"></td>
+                <td><input type="radio" id="HighInspect4" name="NormRateHI" value="4"></td>
+                <td><input type="radio" id="LowNotInspect4" name="NormRateLN" value="4"></td>
+                <td><input type="radio" id="HighNotInspect4" name="NormRateHN" value="4"></td>
+            </tr>
+            <tr>
+                <th>Socially appropriate</th>
+                <td><input type="radio" id="LowInspect5" name="NormRateLI" value="5"></td>
+                <td><input type="radio" id="HighInspect5" name="NormRateHI" value="5"></td>
+                <td><input type="radio" id="LowNotInspect5" name="NormRateLN" value="5"></td>
+                <td><input type="radio" id="HighNotInspect5" name="NormRateHN" value="5"></td>
+            </tr>
+            <tr>
+                <th>Very Socially appropriate</th>
+                <td><input type="radio" id="LowInspect6" name="NormRateLI" value="6"></td>
+                <td><input type="radio" id="HighInspect6" name="NormRateHI" value="6"></td>
+                <td><input type="radio" id="LowNotInspect6" name="NormRateLN" value="6"></td>
+                <td><input type="radio" id="HighNotInspect6" name="NormRateHN" value="6"></td>
+            </tr>
+        </table>
+        <br>
+        <table class="table table-bordered text-center" style="width: auto; margin: auto">
+            <tr>
+                <th rowspan="2"></th>
+                <th colspan="4">How sure are you that most people will choose the same rating?</th>
+            </tr>
+            <tr>
+                <th>LOW when Employer chooses INSPECT</th>
+                <th>HIGH when Employer chooses INSPECT</th>
+                <th>LOW when Employer chooses NOT INSPECT</th>
+                <th>HIGH when Employer chooses NOT INSPECT</th>
+            </tr>
+            <tr>
+                <th>Very unsure</th>
+                <td><input type="radio" id="MajorRateLI1" name="MajorRateLI" value="1"></td>
+                <td><input type="radio" id="MajorRateHI1" name="MajorRateHI" value="1"></td>
+                <td><input type="radio" id="MajorRateLN1" name="MajorRateLN" value="1"></td>
+                <td><input type="radio" id="MajorRateHN1" name="MajorRateHN" value="1"></td>
+            </tr>
+            <tr>
+                <th>Somewhat unsure</th>
+                <td><input type="radio" id="MajorRateLI2" name="MajorRateLI" value="2"></td>
+                <td><input type="radio" id="MajorRateHI2" name="MajorRateHI" value="2"></td>
+                <td><input type="radio" id="MajorRateLN2" name="MajorRateLN" value="2"></td>
+                <td><input type="radio" id="MajorRateHN2" name="MajorRateHN" value="2"></td>
+            </tr>
+            <tr>
+                <th>Somewhat sure</th>
+                <td><input type="radio" id="MajorRateLI3" name="MajorRateLI" value="3"></td>
+                <td><input type="radio" id="MajorRateHI3" name="MajorRateHI" value="3"></td>
+                <td><input type="radio" id="MajorRateLN3" name="MajorRateLN" value="3"></td>
+                <td><input type="radio" id="MajorRateHN3" name="MajorRateHN" value="3"></td>
+            </tr>
+            <tr>
+                <th>Very sure</th>
+                <td><input type="radio" id="MajorRateLI4" name="MajorRateLI" value="4"></td>
+                <td><input type="radio" id="MajorRateHI4" name="MajorRateHI" value="4"></td>
+                <td><input type="radio" id="MajorRateLN4" name="MajorRateLN" value="4"></td>
+                <td><input type="radio" id="MajorRateHN4" name="MajorRateHN" value="4"></td>
+            </tr>
+        </table>
+        <br>
+        <p><b>Click the ‘Next’ button to proceed.</b></p>
+    </div>
+</div>
+    <br>
+    {% next_button %}
+
+{% endblock %}

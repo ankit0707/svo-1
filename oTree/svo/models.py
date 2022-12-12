@@ -16,17 +16,17 @@ doc = """
       Social Value Orientation
       """
 
+
 # Config for the game
 class Constants(BaseConstants):
     name_in_url = 'svo'
-    players_per_group = None         # The number should be a multiple of 2 in case the matching is RANDOM_DICTATOR.
+    players_per_group = None  # The number should be a multiple of 2 in case the matching is RANDOM_DICTATOR.
     num_rounds = 1
 
-
     slider_end_points = {
-        'item7':  [(100, 50), (70, 100)],
-        'item8':  [(90, 100), (100, 90)],
-        'item9':  [(100, 70), (50, 100)],
+        'item7': [(100, 50), (70, 100)],
+        'item8': [(90, 100), (100, 90)],
+        'item9': [(100, 70), (50, 100)],
         'item10': [(100, 70), (90, 100)],
         'item11': [(70, 100), (100, 70)],
         'item12': [(50, 100), (100, 90)],
@@ -36,7 +36,6 @@ class Constants(BaseConstants):
 
     # representing line y=x using Ax+By=C by A, B, C
     identity_line = (1, -1, 0)
-
 
     line = compute_line
     id_line = identity_line
@@ -70,7 +69,7 @@ class Constants(BaseConstants):
 # Defining what configs to be saved
 class Subsession(BaseSubsession):
     players_per_group = models.IntegerField()
-    language = models.StringField(choices=['EN', 'DE', 'IT', 'FR'])   # English, Deutsch, Italian
+    language = models.StringField(choices=['EN', 'DE', 'IT', 'FR'])  # English, Deutsch, Italian
     select_items = models.StringField(choices=['PRIMARY', 'FULL'])
     items_in_random_order = models.BooleanField()
     scale = models.FloatField()
@@ -79,27 +78,25 @@ class Subsession(BaseSubsession):
     random_payoff = models.StringField(choices=['RAND', 'SUM'])
     slider_init = models.StringField(choices=['LEFT', 'RIGHT', 'RAND', 'AVG'])
 
-
     def creating_session(self):
         group_matrix = []
         players = self.get_players()
         num_players = len(self.get_players())
         if self.session.config['matching'] == 'RING':
             ppg = num_players
-            if ppg<2:
+            if ppg < 2:
                 raise ValueError("Number of player for RING matching should be at least 2")
 
         elif self.session.config['matching'] == 'RANDOM_DICTATOR':
             ppg = 2
 
-        if num_players%ppg != 0:
+        if num_players % ppg != 0:
             raise ValueError("Number of player must be multiple of {}".format(ppg))
-
 
         for i in range(0, len(players), ppg):
             group_matrix.append(players[i:i + ppg])
         self.set_group_matrix(group_matrix)
-        
+
         # Runs at initialization time and saves the configs in the database
         self.players_per_group = Constants.players_per_group
         self.language = self.session.config['language'].lower()
@@ -122,7 +119,6 @@ class Subsession(BaseSubsession):
         else:
             raise ValueError("{} is not a valid language code.")
 
-
         self.session.vars['django_language'] = user_language
 
         translation.activate(user_language)
@@ -134,7 +130,7 @@ class Subsession(BaseSubsession):
 
         self.set_item_orders(item_order)
 
-	# Sets the order of items that is going to be shown to each player
+    # Sets the order of items that is going to be shown to each player
     # it can be random for each player or the fixed order according to the paper
     def set_item_orders(self, item_order):
         players = self.get_players()
@@ -167,24 +163,24 @@ class Group(BaseGroup):
         mean_to_self = 0
         mean_to_others = 0
 
-        mean_to_self+= player.input_self_1
-        mean_to_self+= player.input_self_2
-        mean_to_self+= player.input_self_3
-        mean_to_self+= player.input_self_4
-        mean_to_self+= player.input_self_5
-        mean_to_self+= player.input_self_6
+        mean_to_self += player.input_self_1
+        mean_to_self += player.input_self_2
+        mean_to_self += player.input_self_3
+        mean_to_self += player.input_self_4
+        mean_to_self += player.input_self_5
+        mean_to_self += player.input_self_6
         mean_to_self = mean_to_self / 6
 
-        mean_to_others+= player.input_other_1
-        mean_to_others+= player.input_other_2
-        mean_to_others+= player.input_other_3
-        mean_to_others+= player.input_other_4
-        mean_to_others+= player.input_other_5
-        mean_to_others+= player.input_other_6
+        mean_to_others += player.input_other_1
+        mean_to_others += player.input_other_2
+        mean_to_others += player.input_other_3
+        mean_to_others += player.input_other_4
+        mean_to_others += player.input_other_5
+        mean_to_others += player.input_other_6
         mean_to_others = mean_to_others / 6
 
-
-        return degrees(atan((float(mean_to_others) - self.subsession.scale*50) / (float(mean_to_self) - self.subsession.scale*50)))
+        return degrees(atan(
+            (float(mean_to_others) - self.subsession.scale * 50) / (float(mean_to_self) - self.subsession.scale * 50)))
 
     # A function to calculate the SVO type
     def svo_type(self, angle):
@@ -196,7 +192,7 @@ class Group(BaseGroup):
             return 'Individualist'
         if angle <= -12.04:
             return 'Competitive'
-    
+
     # Setting the payoff at random item in case of Ring 
     def ring_payoff(self, sender_player, receiver_player):
 
@@ -219,7 +215,6 @@ class Group(BaseGroup):
                                            sender_player.input_self_3 + sender_player.input_self_4 + \
                                            sender_player.input_self_5 + sender_player.input_self_6
             sender_player.kept_of_sender = float(sender_player.kept_of_sender)
-
 
         # Only the first six items
         if self.subsession.select_items == 'PRIMARY':
@@ -277,8 +272,8 @@ class Group(BaseGroup):
             if self.subsession.random_payoff == 'RAND':
 
                 rand = random.randint(0, 14)
-                sender_player.paid_slider = rand+1
-                receiver_player.slider_as_receiver = rand+1
+                sender_player.paid_slider = rand + 1
+                receiver_player.slider_as_receiver = rand + 1
 
                 if rand == 0:
                     sender_player.kept_of_sender = sender_player.input_self_1
@@ -383,8 +378,7 @@ class Group(BaseGroup):
                 sender_player.payoff += sum(sender_self)
                 sender_player.kept_of_sender += sum(sender_self)
 
-
-    # Setting the payoff at random item in case of random dictator
+    # Setting the payoff at random item in case of random Misinfo
     def random_dictator_payoff(self, sender_player, receiver_player):
 
         if self.subsession.random_payoff == 'SUM':
@@ -401,8 +395,8 @@ class Group(BaseGroup):
 
             if self.subsession.random_payoff == 'RAND':
                 rand = random.randint(0, 5)
-                sender_player.paid_slider = rand+1
-                receiver_player.slider_as_receiver = rand+1
+                sender_player.paid_slider = rand + 1
+                receiver_player.slider_as_receiver = rand + 1
 
                 if rand == 0:
                     receiver_player.payoff = sender_player.input_other_1
@@ -431,8 +425,8 @@ class Group(BaseGroup):
             if self.subsession.random_payoff == 'RAND':
 
                 rand = random.randint(0, 14)
-                sender_player.paid_slider = rand+1
-                receiver_player.slider_as_receiver = rand+1
+                sender_player.paid_slider = rand + 1
+                receiver_player.slider_as_receiver = rand + 1
 
                 if rand == 0:
                     # receiver payoff
@@ -509,7 +503,6 @@ class Group(BaseGroup):
                 receiver_player.payoff += sum(sender_other)
                 sender_player.payoff += sum(sender_self)
 
-
     def inequality_aversion_score(self, svo_type, selected_values):
 
         if svo_type == 'Prosocial':
@@ -524,25 +517,25 @@ class Group(BaseGroup):
                 chosen_point = selected_values[item]
 
                 x, y = Constants.mid_points[item]
-                mid_point = (scale*x, scale*y)
+                mid_point = (scale * x, scale * y)
                 dist_to_mid.append(distance(chosen_point, mid_point))
 
-                x,y = Constants.joint_max[item]
-                joint_max_point = (scale*x, scale*y)
+                x, y = Constants.joint_max[item]
+                joint_max_point = (scale * x, scale * y)
                 dist_to_joint_max.append(distance(chosen_point, joint_max_point))
 
                 x, y = Constants.altruist_points[item]
-                altruist_point = (scale*x, scale*y)
+                altruist_point = (scale * x, scale * y)
                 dist_to_altruist.append(distance(chosen_point, altruist_point))
 
                 x, y = Constants.individualist_points[item]
-                indiv_point = (scale*x, scale*y)
+                indiv_point = (scale * x, scale * y)
                 dist_to_indiv.append(distance(chosen_point, indiv_point))
 
-            avg_dist_to_equality = sum(dist_to_mid)/len(dist_to_mid)
-            avg_dist_to_joint = sum(dist_to_joint_max)/len(dist_to_joint_max)
-            avg_dist_to_altruist = sum(dist_to_altruist)/len(dist_to_altruist)
-            avg_dist_to_indiv = sum(dist_to_indiv)/len(dist_to_indiv)
+            avg_dist_to_equality = sum(dist_to_mid) / len(dist_to_mid)
+            avg_dist_to_joint = sum(dist_to_joint_max) / len(dist_to_joint_max)
+            avg_dist_to_altruist = sum(dist_to_altruist) / len(dist_to_altruist)
+            avg_dist_to_indiv = sum(dist_to_indiv) / len(dist_to_indiv)
 
             # The Inequality Aversion Score is only calculated
             # for those who are closer to efficiency or equality
@@ -553,7 +546,7 @@ class Group(BaseGroup):
                            and avg_dist_to_joint <= avg_dist_to_altruist)
 
             if altru_indiv:
-                inequality_aversion_score = avg_dist_to_equality /(avg_dist_to_equality + avg_dist_to_joint)
+                inequality_aversion_score = avg_dist_to_equality / (avg_dist_to_equality + avg_dist_to_joint)
                 return inequality_aversion_score
             else:
                 return -99
@@ -562,9 +555,9 @@ class Group(BaseGroup):
 
     # create a dictionary from the selected values
     def chosen_option_list(self, player):
-        options = {"item7":  (float(player.input_self_7), float(player.input_other_7)),
-                   "item8":  (float(player.input_self_8), float(player.input_other_8)),
-                   "item9":  (float(player.input_self_9), float(player.input_other_9)),
+        options = {"item7": (float(player.input_self_7), float(player.input_other_7)),
+                   "item8": (float(player.input_self_8), float(player.input_other_8)),
+                   "item9": (float(player.input_self_9), float(player.input_other_9)),
                    "item10": (float(player.input_self_10), float(player.input_other_10)),
                    "item11": (float(player.input_self_11), float(player.input_other_11)),
                    "item12": (float(player.input_self_12), float(player.input_other_12)),
@@ -575,57 +568,53 @@ class Group(BaseGroup):
 
     # A function to calculate the payoff for the players
     def set_payoffs(self):
-        players = self.get_players()                                        # Get all the players for this game
+        players = self.get_players()  # Get all the players for this game
         for p in players:
-            p.svo_angle = self.svo_angle(p)                                 # Calculate the SVO angle
-            p.alpha = tan(2*pi*p.svo_angle/360)                                # calculate the alpha value
-            p.svo_type = self.svo_type(p.svo_angle)                               # Check what is the SVO type of the player
-            if self.subsession.select_items == 'FULL':                            # Calculate the inequality_aversion_score
+            p.svo_angle = self.svo_angle(p)  # Calculate the SVO angle
+            p.alpha = tan(2 * pi * p.svo_angle / 360)  # calculate the alpha value
+            p.svo_type = self.svo_type(p.svo_angle)  # Check what is the SVO type of the player
+            if self.subsession.select_items == 'FULL':  # Calculate the inequality_aversion_score
                 selected_values = self.chosen_option_list(player=p)
                 p.inequality_aversion_score = self.inequality_aversion_score(p.svo_type, selected_values)
 
-            
-        # Case of RING matching 
+        # Case of RING matching
         if self.subsession.matching == 'RING':
             for i, p in enumerate(players):
-                self.ring_payoff(p, players[(i+1)%len(players)])
+                self.ring_payoff(p, players[(i + 1) % len(players)])
                 players[i].is_sender = True
-                players[(i+1)%len(players)].is_receiver = True
+                players[(i + 1) % len(players)].is_receiver = True
 
 
         # Case of RANDOM_DICTATOR matching
         elif self.subsession.matching == 'RANDOM_DICTATOR':
-                for i in range(0, len(players),2):                          # for all possible groups
-                    rand_first_group = random.randint(0, 1)                 # A random value to choose either player A or B
+            for i in range(0, len(players), 2):  # for all possible groups
+                rand_first_group = random.randint(0, 1)  # A random value to choose either player A or B
 
-                    if rand_first_group == 0:                               # Choose member A as the sender and B as the receiver.
-                        sender_player = players[i]
-                        players[i].is_sender = True
-                        players[i].is_receiver = False
+                if rand_first_group == 0:  # Choose member A as the sender and B as the receiver.
+                    sender_player = players[i]
+                    players[i].is_sender = True
+                    players[i].is_receiver = False
 
-                        receiver_player = players[i+1]
-                        players[i+1].is_receiver = True
-                        players[i+1].is_sender = False
-                        self.random_dictator_payoff(sender_player, receiver_player)         # Set the payoff
-                    else:                                                   # Choose member B as the sender and A as the receiver
-                        receiver_player = players[i]
-                        players[i].is_receiver = True
-                        players[i].is_sender = False
+                    receiver_player = players[i + 1]
+                    players[i + 1].is_receiver = True
+                    players[i + 1].is_sender = False
+                    self.random_dictator_payoff(sender_player, receiver_player)  # Set the payoff
+                else:  # Choose member B as the sender and A as the receiver
+                    receiver_player = players[i]
+                    players[i].is_receiver = True
+                    players[i].is_sender = False
 
-                        sender_player = players[i+1]
-                        players[i+1].is_sender = True
-                        players[i+1].is_receiver = False
-                        self.random_dictator_payoff(sender_player, receiver_player)         # Set the payoff
+                    sender_player = players[i + 1]
+                    players[i + 1].is_sender = True
+                    players[i + 1].is_receiver = False
+                    self.random_dictator_payoff(sender_player, receiver_player)  # Set the payoff
 
-                    # TODO it seems that this is not correct
-                    # self.random_dictator_payoff(a_player, b_player)         # Set the payoff
+                # TODO it seems that this is not correct
+                # self.random_dictator_payoff(a_player, b_player)         # Set the payoff
 
 
 # Player base class which contains the values for a single player per game
 class Player(BasePlayer):
-
-
-
     # input_self_1 represents the amount of money that the user has chosen for himself for the first item
     # input_other_1 represents the amount of money that the user has chosen for others for the first item.
     input_self_1 = models.DecimalField(max_digits=5, decimal_places=2)
@@ -634,45 +623,45 @@ class Player(BasePlayer):
     # Same as above but for item 2 in the paper
     input_self_2 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_2 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     # Same as above but for item 3 in the paper
     input_self_3 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_3 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     # Same as above but for item 2 in the paper and so on.
     input_self_4 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_4 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_5 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_5 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_6 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_6 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_7 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_7 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_8 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_8 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_9 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_9 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_10 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_10 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_11 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_11 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_12 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_12 = models.DecimalField(max_digits=5, decimal_places=2)
 
     input_self_13 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_13 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_14 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_14 = models.DecimalField(max_digits=5, decimal_places=2)
-    
+
     input_self_15 = models.DecimalField(max_digits=5, decimal_places=2)
     input_other_15 = models.DecimalField(max_digits=5, decimal_places=2)
 
@@ -711,7 +700,7 @@ class Player(BasePlayer):
     received_from_sender = models.DecimalField(max_digits=5, decimal_places=2)
 
     '''
-    random dictator matching
+    random Misinfo matching
           is_sender=True : the player was a sender
           is_receiver=True : the player was a receiver
     ring matching 
@@ -719,4 +708,3 @@ class Player(BasePlayer):
     '''
     is_sender = models.BooleanField(initial=False)
     is_receiver = models.BooleanField(initial=False)
-

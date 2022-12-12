@@ -1,0 +1,28 @@
+{% extends "global/SimplePage.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+Instructions : Stage 1
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body" align="justify">
+        <p style="font-size: 24px;">
+         In this experiment, you will read descriptions of different situations and evaluate the choices that a person named "Individual A" has in each situation. You will decide if each choice is socially appropriate or inappropriate.
+
+            <p style="font-size: 24px;">
+        By "socially appropriate," we mean behavior that most people agree is the proper thing to do and expect that individual A should do. By "socially inappropriate," we mean behavior that most people do not agree with and would make them upset.
+
+             </p>
+        <p style="font-size: 24px;">Please answer honestly and based on what you think most people believe is the right thing to do. The next screen will show you an example situation.</p>
+
+
+        <p><b>Click the ‘Next’ button to proceed.</b></p>
+    </div>
+</div>
+    <br>
+    {% next_button %}
+
+{% endblock %}

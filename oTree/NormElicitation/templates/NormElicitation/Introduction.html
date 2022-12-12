@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+Introduction
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body" align="justify">
+        <p>
+            Thank you for participating in this experiment. The aim of this experiment is to study how people make
+            decisions. You will be asked to make decisions in strategic situations. If you carefully follow these
+            instructions, you may earn a considerable amount of money. The entire experiment will take place through
+            computer terminals, and all interactions between you and the participant you are paired with will take
+            place through the computers.
+        </p>
+        <p>
+            Please follow the instructions very carefully. If you have any questions during the study, please raise
+            your hand and wait for an experimenter to come to you. Please do not talk or try to communicate with
+            other participants either directly or via mobile devices during the experiment. Participants intentionally
+            violating the rules may be asked to leave the experiment and may not be paid.
+        </p>
+        <p>
+            The experiment will last about {{ Constants.minutes }} minutes. Throughout this experiment, you are not
+            allowed to go back to the previous screen.
+        </p>
+        <p>
+            For your participation, you will be paid some
+            substantial additional amount that will depend on the decisions you make during the experiment. Total
+            earnings will be paid to each participant at the end of the experiment.
+        </p>
+        <p><b>Click the ‘Next’ button to proceed.</b></p>
+    </div>
+</div>
+
+    {% next_button %}
+
+{% endblock %}

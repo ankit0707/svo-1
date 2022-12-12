@@ -1,0 +1,128 @@
+{% extends "global/SimplePage.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+Situation B
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body" align="justify">
+
+        <p>
+            The table below presents a hypothetical Situation and choices of the possible actions that you might take to protect yourself and others from infection.
+            For each of the action, please indicate whether you believe choosing that option is very socially inappropriate, socially
+            inappropriate, somewhat socially inappropriate, somewhat socially appropriate, socially appropriate, or
+            very socially appropriate. To maximise your earning in this task try to match your responses to the response of
+            majority of people present here today. <i><b> Your reward depends on how closely your response match the response of majority of people here today.</b></i>
+
+        </p>
+
+        <p>
+            Situation : There has been reported cases of novel virus in country X. Public health experts predict
+            that the threat might soon become global, and the infection will be widespread. Please indicate below how would
+            you rate the appropriateness of below mentioned actions in response to the infection.
+        </p>
+        <table class="table table-bordered text-center" style="width: auto; margin: auto">
+
+            <tr>
+
+                <th colspan = "6"> Situation : There has been reported cases of novel virus in country X. Public health experts predict
+            that the threat might soon become global, and the infection will be widespread. Please indicate below how would
+            you rate the appropriateness of below mentioned actions in response to the infection.</th>
+
+            </tr>
+            <tr>
+                 <th rowspan="2"></th>
+             <th colspan="5"> Choices of actions</th>
+
+            </tr>
+            <tr>
+
+                <th>Wear Masks</th>
+                <th>Self isolate if you experience symptoms</th>
+                <th>Avoid unnecessary public gatherings</th>
+                <th>Maintain 2m distance in public</th>
+                <th> Get vaccinated when vaccine becomes available</th>
+            </tr>
+            <tr>
+                <th>Very socially inappropriate</th>
+                <td><input type="radio" id="InspectLow1" name="NormRateIL" value="1"></td>
+                <td><input type="radio" id="NotInspectLow1" name="NormRateNL" value="1"></td>
+                <td><input type="radio" id="InspectHigh1" name="NormRateIH" value="1"></td>
+                <td><input type="radio" id="NotInspectHigh1" name="NormRateNH" value="1"></td>
+                <td><input type="radio" id="NotInspectHigh1" name="NormRatek" value="1"></td>
+            </tr>
+            <tr>
+                <th>Socially inappropriate</th>
+                <td><input type="radio" id="InspectLow2" name="NormRateIL" value="2"></td>
+                <td><input type="radio" id="NotInspectLow2" name="NormRateNL" value="2"></td>
+                <td><input type="radio" id="InspectHigh2" name="NormRateIH" value="2"></td>
+                <td><input type="radio" id="NotInspectHigh2" name="NormRateNH" value="2"></td>
+                 <td><input type="radio" id="NotInspectHigh1" name="NormRatek" value="1"></td>
+            </tr>
+            <tr>
+                <th>Somewhat Socially inappropriate</th>
+                <td><input type="radio" id="InspectLow3" name="NormRateIL" value="3"></td>
+                <td><input type="radio" id="NotInspectLow3" name="NormRateNL" value="3"></td>
+                <td><input type="radio" id="InspectHigh3" name="NormRateIH" value="3"></td>
+                <td><input type="radio" id="NotInspectHigh3" name="NormRateNH" value="3"></td>
+                 <td><input type="radio" id="NotInspectHigh1" name="NormRatek" value="1"></td>
+            </tr>
+            <tr>
+                <th>Somewhat Socially appropriate</th>
+                <td><input type="radio" id="InspectLow4" name="NormRateIL" value="4"></td>
+                <td><input type="radio" id="NotInspectLow4" name="NormRateNL" value="4"></td>
+                <td><input type="radio" id="InspectHigh4" name="NormRateIH" value="4"></td>
+                <td><input type="radio" id="NotInspectHigh4" name="NormRateNH" value="4"></td>
+                 <td><input type="radio" id="NotInspectHigh1" name="NormRatek" value="1"></td>
+            </tr>
+            <tr>
+                <th>Socially appropriate</th>
+                <td><input type="radio" id="InspectLow5" name="NormRateIL" value="5"></td>
+                <td><input type="radio" id="NotInspectLow5" name="NormRateNL" value="5"></td>
+                <td><input type="radio" id="InspectHigh5" name="NormRateIH" value="5"></td>
+                <td><input type="radio" id="NotInspectHigh5" name="NormRateNH" value="5"></td>
+                 <td><input type="radio" id="NotInspectHigh1" name="NormRatek" value="1"></td>
+            </tr>
+            <tr>
+                <th>Very Socially appropriate</th>
+                <td><input type="radio" id="InspectLow6" name="NormRateIL" value="6"></td>
+                <td><input type="radio" id="NotInspectLow6" name="NormRateNL" value="6"></td>
+                <td><input type="radio" id="InspectHigh6" name="NormRateIH" value="6"></td>
+                <td><input type="radio" id="NotInspectHigh6" name="NormRateNH" value="6"></td>
+                 <td><input type="radio" id="NotInspectHigh1" name="NormRatek" value="1"></td>
+            </tr>
+        </table>
+        <br>
+        <table class="table table-bordered text-center" style="width: auto; margin: auto">
+            <tr>
+
+                <th colspan="4">How sure are you that most people will choose the same rating?</th>
+
+            </tr>
+             <tr>
+                <th>Very Unsure</th>
+                <th>Somewhat Unsure</th>
+                <th>Somewhat Sure</th>
+                <th>Very Sure</th>
+            </tr>
+            <tr>
+
+                <th><input  type="radio" id="MajorRateLI1" name="MajorRateLI" value="1"></th>
+                <th><input type="radio" id="MajorRateLI2" name="MajorRateLI" value="2"></th>
+                 <th><input type="radio" id="MajorRateLI2" name="MajorRateLI" value="2"></th>
+                <th><input type="radio" id="MajorRateLI3" name="MajorRateLI" value="3"></th>
+            </tr>
+
+        </table>
+        <br>
+        <p><b>Click the ‘Next’ button to proceed.</b></p>
+    </div>
+</div>
+    <br>
+    {% next_button %}
+
+{% endblock %}
